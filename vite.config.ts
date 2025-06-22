@@ -2,23 +2,15 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
-import dts from 'vite-plugin-dts';
 
 export default defineConfig({
-  plugins: [
-    react(),
-    dts({
-      insertTypesEntry: true,
-      include: ['src/**/*'],
-      exclude: ['src/**/*.stories.tsx', 'src/**/*.test.tsx'],
-    }),
-  ],
+  plugins: [react()],
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'ThemeLibrary',
+      name: 'MyComponentLibrary',
       formats: ['es', 'cjs'],
-      fileName: (format) => `index.${format === 'es' ? 'esm' : format}.js`,
+      fileName: (format) => `index.${format === 'es' ? 'esm' : 'cjs'}.js`,
     },
     rollupOptions: {
       external: [
@@ -28,6 +20,7 @@ export default defineConfig({
         '@emotion/react',
         '@emotion/styled',
         'framer-motion',
+        'react-icons',
       ],
       output: {
         globals: {
